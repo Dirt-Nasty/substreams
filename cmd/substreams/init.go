@@ -453,7 +453,7 @@ func runSubstreamsInitE(cmd *cobra.Command, args []string) error {
 
 				// the multiple \n are not a mistake, it's to have a blank line before the next message
 				fmt.Printf("\nProject will be saved in %s\n", savingDest)
-				userState.downloadedFilesfolderPath = savingDest
+				userState.downloadedFilesfolderPath = strings.TrimSpace(savingDest)
 			}
 
 			input := msg.DownloadFiles
@@ -480,6 +480,7 @@ func runSubstreamsInitE(cmd *cobra.Command, args []string) error {
 
 					sourcePath := filepath.Join(zipRoot, inputFile.Filename)
 					err = saveDownloadFile(sourcePath, overwriteForm, inputFile)
+					fmt.Printf("sourcePath: %s inputFile: %s\n", zipRoot, inputFile.Filename)
 					if err != nil {
 						return fmt.Errorf("saving zip file: %w", err)
 					}
